@@ -7,6 +7,10 @@
 
 Easy Installation and Usage 
 
+
+## Required
+Newtonsoft.Json is Required
+
 ## Installation
 ```
 
