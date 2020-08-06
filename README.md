@@ -7,6 +7,11 @@
 
 Easy Installation and Usage 
 
+## Special Feature
+- Create Applications and Bot Directly from the Library
+- Get informations about Bot
+- Get informations about Teams
+- Get Developers liscence informations about Applications (NEW)
 
 ## Required
 Newtonsoft.Json is Required
