@@ -19,9 +19,7 @@ namespace DiscordPortal.Net
         {
             Token = token;
         }
-        
-
-
+         
 
         public void RegeneratingBotToken(Bot bot)
         {
