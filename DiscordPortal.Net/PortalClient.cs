@@ -10,17 +10,24 @@ using System.Threading.Tasks;
 namespace DiscordPortal.Net
 {
     /// <summary>
-    /// <see cref="PortalClient"/> Est le client principal pour exécuter des actions sur le Discord Developer Portal
+    /// <see cref="PortalClient"/> is the main client to used in the library
     /// </summary>
     public class PortalClient
     {
         public static string Token;
+        /// <summary>
+        /// <see cref="Connect(string)"/> is the main connecting method used by the client
+        /// </summary>
+        /// <param name="token"></param>
         public void Connect(string token)
         {
             Token = token;
         }
          
-
+        /// <summary>
+        /// <see cref="RegeneratingBotToken(Bot)"/> is used to regenarate bot Token's
+        /// </summary>
+        /// <param name="bot"></param>
         public void RegeneratingBotToken(Bot bot)
         {
             var Req = (HttpWebRequest)WebRequest.Create($"https://discord.com/api/v6/applications/"+bot.id.ToString()+"/bot/reset");
@@ -43,6 +50,11 @@ namespace DiscordPortal.Net
             var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
         }
 
+        /// <summary>
+        /// <see cref="GetApplicationByName(string)"/> return the class <see cref="Apps"/> from the name (string) given
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public Apps GetApplicationByName(string name)
         {
             Applications applications = GetApplications();
@@ -57,7 +69,11 @@ namespace DiscordPortal.Net
             return null;
         }
 
-
+        /// <summary>
+        /// <see cref="CreateBot(string)"/> Create an application and activate bot on it, return <see cref="Apps"/> from the name (string) given
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <returns></returns>
         public Bot CreateBot(string Name)
         {
            Apps app = CreateApplication(Name);
@@ -66,6 +82,13 @@ namespace DiscordPortal.Net
 
         }
 
+        /// <summary>
+        /// <see cref="AddBotToApplication(Apps)"/> Activate the bot instance to an application that does not have bot already activated
+        /// <para></para>
+        /// return the class <see cref="Bot"/> from the <see cref="Apps"/> given
+        /// </summary>
+        /// <param name="app"></param>
+        /// <returns></returns>
         public Bot AddBotToApplication(Apps app)
         {
             if (app.bot == null)
@@ -98,7 +121,11 @@ namespace DiscordPortal.Net
             }
            
         }
-
+        /// <summary>
+        /// <see cref="KickUserFromTeam(TeamInformation, User)"/> Kick a user from a selected team
+        /// </summary>
+        /// <param name="teaminfo"></param>
+        /// <param name="team_member"></param>
         public void KickUserFromTeam(TeamInformation teaminfo,User team_member)
         {
             HttpWebRequest Req = WebRequest.CreateHttp($"https://discord.com/api/v6/teams/"+teaminfo.id.ToString()+"/members/"+team_member.id.ToString());
@@ -119,6 +146,12 @@ namespace DiscordPortal.Net
             }
 
         }
+        /// <summary>
+        /// <see cref="InviteToTeam(TeamInformation, string, string)"/> invite user to selected team
+        /// </summary>
+        /// <param name="teaminfo"></param>
+        /// <param name="user"></param>
+        /// <param name="discriminator"></param>
         public void InviteToTeam(TeamInformation teaminfo, string user, string discriminator)
         {
             var Req = (HttpWebRequest)WebRequest.Create($"https://discord.com/api/v6/teams/"+teaminfo.id.ToString()+"/members");
@@ -143,7 +176,11 @@ namespace DiscordPortal.Net
 
         }
 
-        
+        /// <summary>
+        /// <see cref="CreateApplication(string)"/> Create an application with the name given and return <see cref="Apps"/> class
+        /// </summary>
+        /// <param name="Application_Name"></param>
+        /// <returns></returns>
         public Apps CreateApplication(string Application_Name)
         {
             
@@ -169,6 +206,12 @@ namespace DiscordPortal.Net
             Apps app = Newtonsoft.Json.JsonConvert.DeserializeObject<Apps>(responseString);
             return app;
         }
+
+        /// <summary>
+        /// <see cref="CreateTeamAndGetInformation(string)"/> Create a team with the name given and return <see cref="TeamInformation"/> class
+        /// </summary>
+        /// <param name="Team_Name"></param>
+        /// <returns></returns>
         public TeamInformation CreateTeamAndGetInformation(string Team_Name)
         {
             var Req = (HttpWebRequest)WebRequest.Create($"https://discord.com/api/v6/teams");
@@ -195,6 +238,11 @@ namespace DiscordPortal.Net
             return team;
            
         }
+
+        /// <summary>
+        /// Create a team with the name given
+        /// </summary>
+        /// <param name="Team_Name"></param>
         public void CreateTeam(string Team_Name)
         {
 
@@ -223,7 +271,10 @@ namespace DiscordPortal.Net
 
         }
 
-
+        /// <summary>
+        /// <see cref="GetTeams"/> Get all teams and return the class <see cref="Teams"/>
+        /// </summary>
+        /// <returns></returns>
         public Teams GetTeams()
         {
             var Req = (HttpWebRequest)WebRequest.Create($"https://discord.com/api/v6/teams");
@@ -241,6 +292,11 @@ namespace DiscordPortal.Net
             return team;
         }
 
+        /// <summary>
+        /// <see cref="GetTeamMembers(TeamInformation)"/> Get the teams members and return the class <see cref="TeamMembers"/>
+        /// </summary>
+        /// <param name="Team"></param>
+        /// <returns></returns>
         public TeamMembers GetTeamMembers(TeamInformation Team)
         {
             var Req = (HttpWebRequest)WebRequest.Create($"https://discord.com/api/v6/teams/"+Team.id.ToString()+"/members");
@@ -258,7 +314,10 @@ namespace DiscordPortal.Net
             return team;
         }
         
-
+        /// <summary>
+        /// <see cref="GetApplications"/> Get All Applications and Return the class <see cref="Applications"/>
+        /// </summary>
+        /// <returns></returns>
         public Applications GetApplications()
         {
             var Req = (HttpWebRequest)WebRequest.Create($"https://discord.com/api/v6/applications?with_team_applications=true");
