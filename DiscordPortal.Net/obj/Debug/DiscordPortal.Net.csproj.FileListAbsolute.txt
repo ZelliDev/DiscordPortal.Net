@@ -1,9 +1,0 @@
-C:\Users\Danny\Documents\DiscordPortal.Net\DiscordPortal.Net\DiscordPortal.Net\bin\Debug\DiscordPortal.Net.dll
-C:\Users\Danny\Documents\DiscordPortal.Net\DiscordPortal.Net\DiscordPortal.Net\bin\Debug\DiscordPortal.Net.pdb
-C:\Users\Danny\Documents\DiscordPortal.Net\DiscordPortal.Net\DiscordPortal.Net\bin\Debug\Newtonsoft.Json.dll
-C:\Users\Danny\Documents\DiscordPortal.Net\DiscordPortal.Net\DiscordPortal.Net\bin\Debug\Newtonsoft.Json.xml
-C:\Users\Danny\Documents\DiscordPortal.Net\DiscordPortal.Net\DiscordPortal.Net\obj\Debug\DiscordPortal.Net.csproj.CoreCompileInputs.cache
-C:\Users\Danny\Documents\DiscordPortal.Net\DiscordPortal.Net\DiscordPortal.Net\obj\Debug\DiscordPortal.Net.csproj.CopyComplete
-C:\Users\Danny\Documents\DiscordPortal.Net\DiscordPortal.Net\DiscordPortal.Net\obj\Debug\DiscordPortal.Net.dll
-C:\Users\Danny\Documents\DiscordPortal.Net\DiscordPortal.Net\DiscordPortal.Net\obj\Debug\DiscordPortal.Net.pdb
-C:\Users\Danny\Documents\DiscordPortal.Net\DiscordPortal.Net\DiscordPortal.Net\obj\Debug\DiscordPortal.Net.csprojAssemblyReference.cache
