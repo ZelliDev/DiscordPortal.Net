@@ -1,0 +1,13 @@
+
+# user specific
+*.user
+
+# build
+bin/
+obj/
+
+# packages
+packages/
+
+# visual studio
+.vs/
