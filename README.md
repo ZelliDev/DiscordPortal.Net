@@ -1,7 +1,6 @@
 # DiscordPortal.Net
 > Usefull Library With Simplified Method In relative with the Discord Developers Portal
 
-[![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/)
 [![Active](http://img.shields.io/badge/Status-Active-green.svg)](https://tterb.github.io)
 
 
