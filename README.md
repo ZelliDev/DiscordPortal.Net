@@ -84,6 +84,10 @@ client.KickUserFromTeam(team.TeamInformation[0], members.TeamMember[0].user);
 ````
 
 ## Release History
+* 1.0.0.0B
+    * Added Application WhiteList Interaction
+    * Updating All Discord API links to Version 8 (V8)
+
 * 1.0.0.0A
     * Added Summary to PortalClient.CS
     * Fixed Assembly CultureInfo Bugs
