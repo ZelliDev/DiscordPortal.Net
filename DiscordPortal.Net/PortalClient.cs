@@ -24,13 +24,42 @@ namespace DiscordPortal.Net
             Token = token;
         }
          
+
+        /// <summary>
+        /// <see cref="AddAppWhitelist(Apps, string, string)"/> is used to invite users to app WhiteList
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="username"></param>
+        /// <param name="discriminator"></param>
+        public void AddAppWhitelist(Apps app, string username, string discriminator)
+        {
+            var Req = (HttpWebRequest)WebRequest.Create($"https://discord.com/api/v8/oauth2/applications/"+app.id.ToString()+"/whitelist");
+            var postData = "{⍚username⍚:⍚"+username+ "⍚,⍚discriminator⍚:⍚"+discriminator+"⍚}";
+
+            var data = Encoding.ASCII.GetBytes(postData.Replace('⍚', '"'));
+            string UserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36";
+            Req.Method = "POST";
+            Req.UserAgent = UserAgent;
+            Req.ContentType = "application/json";
+            Req.Headers.Add("authorization", Token);
+            Req.ContentLength = data.Length;
+
+            using (var stream = Req.GetRequestStream())
+            {
+                stream.Write(data, 0, data.Length);
+            }
+
+            var response = (HttpWebResponse)Req.GetResponse();
+            var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+        }
+
         /// <summary>
         /// <see cref="RegeneratingBotToken(Bot)"/> is used to regenarate bot Token's
         /// </summary>
         /// <param name="bot"></param>
         public void RegeneratingBotToken(Bot bot)
         {
-            var Req = (HttpWebRequest)WebRequest.Create($"https://discord.com/api/v6/applications/"+bot.id.ToString()+"/bot/reset");
+            var Req = (HttpWebRequest)WebRequest.Create($"https://discord.com/api/v8/applications/"+bot.id.ToString()+"/bot/reset");
             var postData = "{}";
 
             var data = Encoding.ASCII.GetBytes(postData.Replace('⍚', '"'));
@@ -93,7 +122,7 @@ namespace DiscordPortal.Net
         {
             if (app.bot == null)
             {
-                var Req = (HttpWebRequest)WebRequest.Create($"https://discord.com/api/v6/applications/" + app.id.ToString() + "/bot");
+                var Req = (HttpWebRequest)WebRequest.Create($"https://discord.com/api/v8/applications/" + app.id.ToString() + "/bot");
 
                 var postData = "{}";
 
@@ -128,7 +157,7 @@ namespace DiscordPortal.Net
         /// <param name="team_member"></param>
         public void KickUserFromTeam(TeamInformation teaminfo,User team_member)
         {
-            HttpWebRequest Req = WebRequest.CreateHttp($"https://discord.com/api/v6/teams/"+teaminfo.id.ToString()+"/members/"+team_member.id.ToString());
+            HttpWebRequest Req = WebRequest.CreateHttp($"https://discord.com/api/v8/teams/"+teaminfo.id.ToString()+"/members/"+team_member.id.ToString());
             string UserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36";
             Req.Method = "DELETE";
             Req.UserAgent = UserAgent;
@@ -154,7 +183,7 @@ namespace DiscordPortal.Net
         /// <param name="discriminator"></param>
         public void InviteToTeam(TeamInformation teaminfo, string user, string discriminator)
         {
-            var Req = (HttpWebRequest)WebRequest.Create($"https://discord.com/api/v6/teams/"+teaminfo.id.ToString()+"/members");
+            var Req = (HttpWebRequest)WebRequest.Create($"https://discord.com/api/v8/teams/"+teaminfo.id.ToString()+"/members");
 
             var postData = "{username: ⍚" + user+ "⍚, discriminator: ⍚" + discriminator+ "⍚}";
 
@@ -184,7 +213,7 @@ namespace DiscordPortal.Net
         public Apps CreateApplication(string Application_Name)
         {
             
-            var Req = (HttpWebRequest)WebRequest.Create($"https://discord.com/api/v6/applications");
+            var Req = (HttpWebRequest)WebRequest.Create($"https://discord.com/api/v8/applications");
 
             var postData = "{*name*: *"+Application_Name+"*, *team_id*: null}";
 
@@ -214,7 +243,7 @@ namespace DiscordPortal.Net
         /// <returns></returns>
         public TeamInformation CreateTeamAndGetInformation(string Team_Name)
         {
-            var Req = (HttpWebRequest)WebRequest.Create($"https://discord.com/api/v6/teams");
+            var Req = (HttpWebRequest)WebRequest.Create($"https://discord.com/api/v8/teams");
 
             var postData = "{" + $"\"name\":\"{Team_Name}\"" + "}";
 
@@ -246,7 +275,7 @@ namespace DiscordPortal.Net
         public void CreateTeam(string Team_Name)
         {
 
-            var Req = (HttpWebRequest)WebRequest.Create($"https://discord.com/api/v6/teams");
+            var Req = (HttpWebRequest)WebRequest.Create($"https://discord.com/api/v8/teams");
 
             var postData = "{" + $"\"name\":\"{Team_Name}\"" + "}";
 
@@ -277,7 +306,7 @@ namespace DiscordPortal.Net
         /// <returns></returns>
         public Teams GetTeams()
         {
-            var Req = (HttpWebRequest)WebRequest.Create($"https://discord.com/api/v6/teams");
+            var Req = (HttpWebRequest)WebRequest.Create($"https://discord.com/api/v8/teams");
             Req.Method = "GET";
             Req.ContentType = "application/json";
             Req.Headers.Add("authorization", Token);
@@ -299,7 +328,7 @@ namespace DiscordPortal.Net
         /// <returns></returns>
         public TeamMembers GetTeamMembers(TeamInformation Team)
         {
-            var Req = (HttpWebRequest)WebRequest.Create($"https://discord.com/api/v6/teams/"+Team.id.ToString()+"/members");
+            var Req = (HttpWebRequest)WebRequest.Create($"https://discord.com/api/v8/teams/"+Team.id.ToString()+"/members");
             Req.Method = "GET";
             Req.ContentType = "application/json";
             Req.Headers.Add("authorization", Token);
@@ -320,7 +349,7 @@ namespace DiscordPortal.Net
         /// <returns></returns>
         public Applications GetApplications()
         {
-            var Req = (HttpWebRequest)WebRequest.Create($"https://discord.com/api/v6/applications?with_team_applications=true");
+            var Req = (HttpWebRequest)WebRequest.Create($"https://discord.com/api/v8/applications?with_team_applications=true");
             Req.Method = "GET";
             Req.ContentType = "application/json";
             Req.Headers.Add("authorization", Token);
