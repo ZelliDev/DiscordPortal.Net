@@ -31,7 +31,7 @@ namespace DiscordPortal.Net
         /// <param name="app"></param>
         /// <param name="username"></param>
         /// <param name="discriminator"></param>
-        public void AddAppWhitelist(Apps app, string username, string discriminator)
+        public void AddUserAppWhitelist(Apps app, string username, string discriminator)
         {
             var Req = (HttpWebRequest)WebRequest.Create($"https://discord.com/api/v8/oauth2/applications/"+app.id.ToString()+"/whitelist");
             var postData = "{⍚username⍚:⍚"+username+ "⍚,⍚discriminator⍚:⍚"+discriminator+"⍚}";
@@ -51,6 +51,31 @@ namespace DiscordPortal.Net
 
             var response = (HttpWebResponse)Req.GetResponse();
             var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+        }
+
+        /// <summary>
+        /// <see cref="RemoveUserAppWhitelist(Apps, string)"/> To Remove User From an Application WhiteList
+        /// </summary>
+        /// <param name="apps"></param>
+        /// <param name="userID"></param>
+        public void RemoveUserAppWhitelist(Apps apps, string userID)
+        {
+            HttpWebRequest Req = WebRequest.CreateHttp($"https://discord.com/api/v8/oauth2/applications/"+apps.id.ToString()+"/whitelist/"+userID);
+            string UserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36";
+            Req.Method = "DELETE";
+            Req.UserAgent = UserAgent;
+            Req.ContentType = "application/json";
+            Req.Headers.Add("authorization", Token);
+
+            using (Stream ReqResponseStream = Req.GetResponse().GetResponseStream())
+            {
+                using (StreamReader ReqResponse = new StreamReader(ReqResponseStream))
+                {
+                    string Resp = ReqResponse.ReadToEnd();
+                    ReqResponse.Close();
+
+                }
+            }
         }
 
         /// <summary>
