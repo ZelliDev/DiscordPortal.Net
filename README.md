@@ -11,6 +11,7 @@ Easy Installation and Usage
 - Get informations about Bot
 - Get informations about Teams
 - Get Developers liscence informations about Applications (NEW)
+- Updated to Discord API V8 (NEW)
 
 ## Required
 Newtonsoft.Json is Required
